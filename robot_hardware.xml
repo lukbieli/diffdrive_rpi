@@ -3,7 +3,7 @@
          type="DiffDriveRpi"
          base_class_type="hardware_interface::SystemInterface">
     <description>
-      Hardware Interface for Differential Drive Arduino controller.
+      Hardware Interface for Differential Drive RaspberryPi controller.
     </description>
   </class>
 </library>
