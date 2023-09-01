@@ -129,6 +129,7 @@ hardware_interface::return_type DiffDriveRpi::read()
 //   arduino_.readEncoderValues(l_wheel_.enc, r_wheel_.enc);
     robot_.readEncoders(&l_wheel_.enc, &r_wheel_.enc);
 
+    //left encoder is counting in other direction
   double pos_prev = l_wheel_.pos;
   l_wheel_.pos = l_wheel_.calcEncAngle();
   l_wheel_.vel = (l_wheel_.pos - pos_prev) / deltaSeconds;
@@ -156,9 +157,15 @@ hardware_interface::return_type DiffDriveRpi::write()
     double left = l_wheel_.cmd / l_wheel_.rads_per_count / cfg_.loop_rate;
     double right = r_wheel_.cmd / r_wheel_.rads_per_count / cfg_.loop_rate;
     std::ostringstream log;
-    log << "l_wheel: " << left << " r_wheel_: " << right << std::endl;
+    log << "l_wheel: " << left << " r_wheel: " << right << std::endl;
     std::string s_log = log.str();
-    RCLCPP_INFO(logger_, s_log);
+    // RCLCPP_INFO(logger_, s_log);
+    
+    std::ostringstream log2;
+    log2 << "l_wheel_cmd: " << l_wheel_.cmd << " r_wheel_cmd: " << r_wheel_.cmd << std::endl;
+    std::string s_log2 = log2.str();
+    // RCLCPP_INFO(logger_, s_log2);
+    
     robot_.move(left, right );
 
 
