@@ -37,6 +37,7 @@ return_type DiffDriveRpi::configure(const hardware_interface::HardwareInfo & inf
   cfg_.baud_rate = std::stoi(info_.hardware_parameters["baud_rate"]);
   cfg_.timeout = std::stoi(info_.hardware_parameters["timeout"]);
   cfg_.enc_counts_per_rev = std::stoi(info_.hardware_parameters["enc_counts_per_rev"]);
+  cfg_.wheel_radius = std::stof(info_.hardware_parameters["wheel_radius"]);
 
   // Set up the wheels
   l_wheel_.setup(cfg_.left_wheel_name, cfg_.enc_counts_per_rev);
@@ -154,8 +155,8 @@ hardware_interface::return_type DiffDriveRpi::write()
 //   }
 
 //   arduino_.setMotorValues(l_wheel_.cmd / l_wheel_.rads_per_count / cfg_.loop_rate, r_wheel_.cmd / r_wheel_.rads_per_count / cfg_.loop_rate);
-    double left = l_wheel_.cmd / l_wheel_.rads_per_count / cfg_.loop_rate;
-    double right = r_wheel_.cmd / r_wheel_.rads_per_count / cfg_.loop_rate;
+    double left = l_wheel_.cmd * cfg_.wheel_radius;
+    double right = r_wheel_.cmd * cfg_.wheel_radius;
     std::ostringstream log;
     log << "l_wheel: " << left << " r_wheel: " << right << std::endl;
     std::string s_log = log.str();

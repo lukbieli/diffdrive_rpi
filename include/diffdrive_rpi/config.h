@@ -13,6 +13,7 @@ struct Config
   int baud_rate = 57600;
   int timeout = 1000;
   int enc_counts_per_rev = 350;
+  float wheel_radius = 0.03;
 };
 
 
