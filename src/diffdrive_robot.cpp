@@ -16,6 +16,7 @@ int main(int argc, char **argv)
   n.getParam("device", robot_cfg.device);
   n.getParam("enc_counts_per_rev", robot_cfg.enc_counts_per_rev);
   n.getParam("robot_loop_rate", robot_cfg.loop_rate);
+  n.getParam("wheel_radius", robot_cfg.wheel_radius);
   
 
   DiffDriveRpi robot(robot_cfg);
